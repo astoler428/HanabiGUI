@@ -45,7 +45,6 @@ public class DisplayPanel extends JPanel {
 		boxPanelCenter.add(Box.createHorizontalGlue());
 		boxPanelCenter.add(cluePanel);
 		
-		this.add(boxPanelCenter, BorderLayout.CENTER);
-		
+		this.add(boxPanelCenter, BorderLayout.CENTER);		
 	}
 }

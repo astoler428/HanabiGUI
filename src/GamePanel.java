@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
 		this.selfPlayer = selfPlayer;
 		
 		this.setLayout(new BorderLayout(10, 5));
-		this.setPreferredSize(new Dimension(950, 800));
+		this.setPreferredSize(new Dimension(1100, 800));
 		this.add(displayPanel, BorderLayout.CENTER);
 
 

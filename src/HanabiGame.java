@@ -39,6 +39,7 @@ public class HanabiGame {
 		createPlayers();
 		setHands();
 		
+		
 	//method called create gamepanels
 		
 		GamePanel gamePanel1 = new GamePanel(displayPanel, listOfPlayers[0], listOfPlayers);
