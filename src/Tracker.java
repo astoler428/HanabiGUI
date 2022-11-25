@@ -1,4 +1,6 @@
 
+//this class stores important data as one object
+
 public class Tracker {
 	
 	private int clues;
@@ -15,8 +17,12 @@ public class Tracker {
 		return clues;
 	}
 
-	public void setClues(int clues) {
-		this.clues = clues;
+	public void addClue() {
+		clues++;
+	}
+	
+	public void subtractClue() {
+		clues--;
 	}
 
 	public int getPoints() {

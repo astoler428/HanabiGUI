@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 //this class stores the center of the gamePanel containing the play area, discard area, tracker area and take action areas.
+//Since border layout regions have no layout manager, I create a box layout container for each object to get the desired layout
 public class DisplayPanel extends JPanel {
 
 	private PlayPanel playPanel;
@@ -14,6 +15,7 @@ public class DisplayPanel extends JPanel {
 	
 	private JPanel boxPanelEast, boxPanelNorth, boxPanelCenter;
 	
+
 	public DisplayPanel(PlayPanel playPan, DiscardPanel discardPan, CluePanel cluePan) {
 		playPanel = playPan;
 		discardPanel = discardPan;
@@ -46,5 +48,10 @@ public class DisplayPanel extends JPanel {
 		boxPanelCenter.add(cluePanel);
 		
 		this.add(boxPanelCenter, BorderLayout.CENTER);		
+	}
+	
+
+	public CluePanel getCluePanel() {
+		return cluePanel;
 	}
 }

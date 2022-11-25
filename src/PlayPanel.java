@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//this panel displays the cards in the deck by taking a cardBack as a label icon with text centered
+//it also creates suit logo cards by creating a border around scaled logo icons
+
 public class PlayPanel extends JPanel{
 	
 	JLabel deck;

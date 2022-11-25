@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//this container is made up of 4 labels, which each have an icon (suit logo) and text, which will track the discards
+//mostly formatting here
+
 public class DiscardPanel extends JPanel {
 	
 	JLabel clubDiscards, diamondDiscards, heartDiscards, spadeDiscards;
-	//JLabel clubLabel, diamondLabel,heartLabel, spadeLabel;
 	ImageIcon clubImage, diamondImage,heartImage, spadeImage;
 	
 	final int IMAGE_SIZE = 30;
@@ -23,7 +25,7 @@ public class DiscardPanel extends JPanel {
 		heartImage = new ImageIcon(CardImages.heart.getImage().getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, java.awt.Image.SCALE_SMOOTH));
 		spadeImage = new ImageIcon(CardImages.spade.getImage().getScaledInstance(IMAGE_SIZE, IMAGE_SIZE, java.awt.Image.SCALE_SMOOTH));
 			
-		clubDiscards = new JLabel("1 1 1 2 2 3 3 4 4 5");
+		clubDiscards = new JLabel("");
 		diamondDiscards = new JLabel();
 		heartDiscards = new JLabel();
 		spadeDiscards = new JLabel();
@@ -32,11 +34,6 @@ public class DiscardPanel extends JPanel {
 		diamondDiscards.setIcon(diamondImage);
 		heartDiscards.setIcon(heartImage);
 		spadeDiscards.setIcon(spadeImage);
-		
-//		clubDiscards.setHorizontalTextPosition(JLabel.RIGHT);
-//		diamondDiscards.setHorizontalTextPosition(JLabel.RIGHT);
-//		heartDiscards.setHorizontalTextPosition(JLabel.RIGHT);
-//		spadeDiscards.setHorizontalTextPosition(JLabel.RIGHT);
 		
 		clubDiscards.setIconTextGap(10);
 		diamondDiscards.setIconTextGap(10);
@@ -67,14 +64,10 @@ public class DiscardPanel extends JPanel {
 		diamondDiscards.setPreferredSize(new Dimension(200,IMAGE_SIZE));
 		heartDiscards.setPreferredSize(new Dimension(200,IMAGE_SIZE));
 		diamondDiscards.setPreferredSize(new Dimension(200,IMAGE_SIZE));
-		
-
-		
 	
 		//new Dimension(200, 250)
 		this.setBackground(Color.gray);
 		this.setLayout(new GridLayout(4, 2));
-		
 		
 		this.add(clubDiscards);
 		this.add(diamondDiscards);

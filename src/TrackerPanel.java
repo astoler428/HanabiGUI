@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+//this class stores the data of clues, points and strikes in a gridLayout - all this data comes in as a tracker object
+
 public class TrackerPanel extends JPanel {
 	
 	Tracker tracker;

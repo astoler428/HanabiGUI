@@ -1,6 +1,8 @@
 import javax.swing.ImageIcon;
 
 public class Card {
+	
+	//every card has a value 0-4, suit 0-3 and holds two of its image, one horizontal and one vertical
 
 	private int value; //0-4
 	private int suit; //0 = club //1 = diamond //2 = heart //3 = spade

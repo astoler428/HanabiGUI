@@ -1,10 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
+//this class takes in a display panel, which is a complex object on it's own and places it at the center
+//it then builds the hands for all the players, starting with yourself
 
 public class GamePanel extends JPanel {
 
@@ -31,25 +36,25 @@ public class GamePanel extends JPanel {
 		setHandLocations();
 	}
 
-	private void makeListOfPlayers(Player[] listPlayers) {
-
+	private void makeListOfPlayers(Player[] listPlayers) {	//this method makes a new list of players that begins with self
+		
+	
 		listOfPlayers = new Player[listPlayers.length];
 
 		int start = selfPlayer.getID();
 		int numPlayers = listPlayers.length;
 
-		for (int idx = 0; idx < numPlayers; idx++) {
-			listOfPlayers[(idx + start) % numPlayers] = listPlayers[idx];
-		}
-
+		for (int idx = 0; idx < numPlayers; idx++) 
+			 listOfPlayers[idx] = listPlayers[(idx + start) % numPlayers];
 	}
 
-	private void setHandLocations() {
+	private void setHandLocations() {	//sets the hands in the correct location based on the number of players
 
 		listOfHandPanels = new ArrayList<>();
-		listOfHandPanels.add(southHandPanel);
 
 		southHandPanel = new SouthHandPanel(selfPlayer);
+		listOfHandPanels.add(southHandPanel);
+
 		this.add(southHandPanel, BorderLayout.SOUTH);
 		
 		switch (listOfPlayers.length) {
@@ -81,5 +86,21 @@ public class GamePanel extends JPanel {
 			listOfHandPanels.add(northHandPanel);
 			listOfHandPanels.add(eastHandPanel);
 		}
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+				
+		if(selfPlayer.isTurn())
+			displayPanel.getCluePanel().setVisible(true);
+		else
+			displayPanel.getCluePanel().setVisible(false);
+		
+		for(int i = 0; i < listOfHandPanels.size(); i++)
+			if(listOfHandPanels.get(i).getPlayer().isTurn())
+				listOfHandPanels.get(i).setBorder(BorderFactory.createLineBorder(Color.pink));
+			else
+				listOfHandPanels.get(i).setBorder(null);
+		
 	}
 }

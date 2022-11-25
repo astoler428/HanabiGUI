@@ -1,13 +1,14 @@
 import java.util.LinkedList;
 
+//A player contains a hand, which is simply a list of cards. Didn't see the need for an object
+
 public class Player {
-	
-	//players can play, clue, discard
-	//players don't draw
 	
 	private LinkedList<Card> hand;
 	private boolean isTurn;
 	private final int id;
+	private Player hasChosenPlayerToClue;
+	private String hasChosenClue;
 	
 	
 	
@@ -15,8 +16,32 @@ public class Player {
 		hand = new LinkedList<Card>();
 		id = playerNumber;
 		isTurn = false;
+		
+		hasChosenPlayerToClue = null;
+		hasChosenClue = null;
 	}
 	
+	public Player getHasChosenPlayerToClue() {
+		return hasChosenPlayerToClue;
+	}
+
+	public void setHasChosenPlayerToClue(Player hasChosenPlayerToClue) {
+		this.hasChosenPlayerToClue = hasChosenPlayerToClue;
+	}
+
+	public String getHasChosenClue() {
+		return hasChosenClue;
+	}
+	
+	public void resetClueSelections() {
+		hasChosenClue = null;
+		hasChosenPlayerToClue = null;
+	}
+
+	public void setHasChosenClue(String hasChosenClue) {
+		this.hasChosenClue = hasChosenClue;
+	}
+
 	public boolean isTurn() {
 		return isTurn;
 	}

@@ -7,6 +7,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+//This border layout container holds a few components
+//1. The gamePanel, which takes up most of the board
+//2. The log and tracker, which is on the East border stacked vertically
+
 public class HanabiGameFrame extends JFrame {
 	
 	String title;

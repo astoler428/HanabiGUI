@@ -2,16 +2,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+//this object will output the moves that occur in the game by updating text in a JTextArea with a scroll component
+
 public class LogPanel extends JPanel {
 	
 	private JLabel title;
 	private JTextArea log;
+	private String logText;
 	private JScrollPane scroll;
 
 	public LogPanel() {
@@ -26,6 +30,9 @@ public class LogPanel extends JPanel {
 		log.setLineWrap(true);	//forces stuff onto next line
 		log.setWrapStyleWord(true);//breaks at nearest word, not character
 		
+		logText = "Game Begins";
+		log.setText(logText);
+		
 		scroll = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	
 		this.setLayout(new FlowLayout());
@@ -33,6 +40,11 @@ public class LogPanel extends JPanel {
 		//this.setSize(getPreferredSize());	//don't use set size since it's going into a flow layout...east panel
 		this.add(title);
 		this.add(scroll);
+	}
+	
+	public void updateLog(String message) {
+		logText = logText + "\n" + message;
+		log.setText(logText);
 	}
 		
 //	public static void main(String[] args) {
