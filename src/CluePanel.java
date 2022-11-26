@@ -1,15 +1,13 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -24,9 +22,11 @@ public class CluePanel extends JPanel {
 	
 	JLabel clueTitle;
 	JRadioButton p1, p2, p3, p4;
+	JRadioButton[] arrayOfPlayerButtons;
 	JRadioButton val1, val2, val3, val4, val5;
 	JRadioButton club, diamond, heart, spade;
 	JButton giveClue;
+	ButtonGroup playerGroup, clueGroup;
 	
 	JPanel playerPanel, valuePanel, suitPanel;
 	
@@ -40,7 +40,7 @@ public class CluePanel extends JPanel {
 				
 		selfPlayer = player;
 		
-		this.setLayout(new GridLayout(5,1,0,5));
+		this.setLayout(new GridLayout(5,1,0,5));  
 		this.setPreferredSize(new Dimension(375, 300));
 		this.setBorder(BorderFactory.createLineBorder(Color.magenta));
 	
@@ -57,6 +57,13 @@ public class CluePanel extends JPanel {
 		p3 = new RadioButton("Player 3", selfPlayer);
 		p4 = new RadioButton("Player 4", selfPlayer);
 		
+		
+		arrayOfPlayerButtons = new JRadioButton[4];
+		arrayOfPlayerButtons[0]= p1;
+		arrayOfPlayerButtons[1]= p2;
+		arrayOfPlayerButtons[2]= p3;
+		arrayOfPlayerButtons[3]= p4;
+		
 		p1.addActionListener(playerListener);
 		p2.addActionListener(playerListener);
 		p3.addActionListener(playerListener);
@@ -72,7 +79,7 @@ public class CluePanel extends JPanel {
 		playerPanel.add(p3);
 		playerPanel.add(p4);
 		
-		ButtonGroup playerGroup = new ButtonGroup();
+		playerGroup = new ButtonGroup();
 		playerGroup.add(p1);
 		playerGroup.add(p2);
 		playerGroup.add(p3);
@@ -125,7 +132,7 @@ public class CluePanel extends JPanel {
 		spade.addActionListener(clueListener);
 
 		
-		ButtonGroup clueGroup = new ButtonGroup();
+		clueGroup = new ButtonGroup();
 		clueGroup.add(val1);
 		clueGroup.add(val2);
 		clueGroup.add(val3);
@@ -152,6 +159,38 @@ public class CluePanel extends JPanel {
 		this.add(suitPanel);
 		this.add(giveClue);
 	}
+	
+	public void configureClueButtons(int numPlayers) {		//doesn't display self or less than # players -> decide what to do if no clues
+		for(int playerID = 0; playerID < arrayOfPlayerButtons.length; playerID++)
+			if(selfPlayer.getID() == playerID || playerID >= numPlayers)
+				arrayOfPlayerButtons[playerID].setVisible(false);
+	}
+	
+	public void resetGiveClueButton() {
+		giveClue.setText("Give Clue");
+		playerGroup.clearSelection();
+		clueGroup.clearSelection();
+	}
+	
+	//Can't put update clue visibility in here bc apparently paintComponent won't run if panel is already invisible
+	//must first set panel visibility and then repaint.
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);		
+	}
+
+	public void updateCluePanelVisibility() {	
+		if(selfPlayer.isTurn()) 
+			this.setVisible(true);	
+	
+		else {
+			this.setVisible(false);
+			this.resetGiveClueButton();	//in case they pressed it with no clues
+		}
+		repaint();
+	}
+	
+
 	
 //	public static void main(String[] args) {
 //		

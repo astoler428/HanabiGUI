@@ -1,11 +1,10 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 //This border layout container holds a few components
 //1. The gamePanel, which takes up most of the board
@@ -33,16 +32,13 @@ public class HanabiGameFrame extends JFrame {
 		eastPanel = new JPanel();
 		eastPanel.setLayout(new FlowLayout());
 		eastPanel.setPreferredSize(new Dimension(200, 600));
-		//eastPanel.setBorder(BorderFactory.createLineBorder(Color.green));
 		eastPanel.add(log);
 		eastPanel.add(trackerPanel);
 		
 		this.add(eastPanel, BorderLayout.EAST);
 		this.add(gamePanel, BorderLayout.CENTER);
-		//this.setBackground(Color.green);
 		
 		this.pack();
 		this.setVisible(true);
 	}
-	
 }

@@ -7,18 +7,30 @@ public class Player {
 	private LinkedList<Card> hand;
 	private boolean isTurn;
 	private final int id;
+	private String name; //for now it's player #id, but you be a username
 	private Player hasChosenPlayerToClue;
 	private String hasChosenClue;
+	private int chosenSlot;
 	
 	
 	
 	public Player(int playerNumber) {
 		hand = new LinkedList<Card>();
 		id = playerNumber;
+		name = "Player #" + (id + 1);
 		isTurn = false;
 		
 		hasChosenPlayerToClue = null;
 		hasChosenClue = null;
+		chosenSlot = -1; //default to no slot
+	}
+	
+	public int getChosenSlot() {
+		return chosenSlot;
+	}
+	
+	public void setChosenSlot(int slot) {
+		chosenSlot = slot;
 	}
 	
 	public Player getHasChosenPlayerToClue() {
@@ -52,6 +64,10 @@ public class Player {
 	
 	public int getID() {
 		return id;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public int getHandSize() {

@@ -1,12 +1,13 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 //this class takes in a display panel, which is a complex object on it's own and places it at the center
 //it then builds the hands for all the players, starting with yourself
@@ -20,12 +21,15 @@ public class GamePanel extends JPanel {
 	private List<HandPanel> listOfHandPanels;
 	private Player selfPlayer;
 	private Player[] listOfPlayers;
-
 	private DisplayPanel displayPanel;
+	private JPopupMenu popMenu;
+	private MouseListener clickListener;
 
-	public GamePanel(DisplayPanel displayPanel, Player selfPlayer, Player[] listPlayers) {
+	public GamePanel(DisplayPanel displayPanel, Player selfPlayer, Player[] listPlayers, JPopupMenu popMenu, MouseListener clickListener) {
 		this.displayPanel = displayPanel;
 		this.selfPlayer = selfPlayer;
+		this.popMenu = popMenu;
+		this.clickListener = clickListener;	//takes in clickListener and passes it into southHandPanel
 		
 		this.setLayout(new BorderLayout(10, 5));
 		this.setPreferredSize(new Dimension(1100, 800));
@@ -52,7 +56,7 @@ public class GamePanel extends JPanel {
 
 		listOfHandPanels = new ArrayList<>();
 
-		southHandPanel = new SouthHandPanel(selfPlayer);
+		southHandPanel = new SouthHandPanel(selfPlayer, popMenu, clickListener);
 		listOfHandPanels.add(southHandPanel);
 
 		this.add(southHandPanel, BorderLayout.SOUTH);
@@ -88,19 +92,11 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {				//place these in their respective classes' paintComponents
 		super.paintComponent(g);
-				
-		if(selfPlayer.isTurn())
-			displayPanel.getCluePanel().setVisible(true);
-		else
-			displayPanel.getCluePanel().setVisible(false);
-		
-		for(int i = 0; i < listOfHandPanels.size(); i++)
-			if(listOfHandPanels.get(i).getPlayer().isTurn())
-				listOfHandPanels.get(i).setBorder(BorderFactory.createLineBorder(Color.pink));
-			else
-				listOfHandPanels.get(i).setBorder(null);
-		
+		displayPanel.repaint();
+		for(int idx = 0; idx < listOfHandPanels.size(); idx++)
+			listOfHandPanels.get(idx).repaint();
 	}
+
 }

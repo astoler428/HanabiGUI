@@ -13,7 +13,7 @@ public class WestHandPanel extends HorizontalHandPanel {
 		this.add(name);
 
 		for (int idx = 0; idx < hand.size(); idx++) {
-			JLabel slot = slots.get(idx);
+			CardLabel slot = slots.get(idx);
 			this.add(slot);
 		}
 

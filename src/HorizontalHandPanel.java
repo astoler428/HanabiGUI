@@ -15,21 +15,33 @@ public class HorizontalHandPanel extends HandPanel {
 		setPreferredSize(new Dimension(150, 400));
 	}
 	
-	public void paint(Graphics g) {
-		super.paint(g);
-		
-		setIcons();
-	}
 	
 	public void setIcons(){								//sets the icon, but doesn't add it to panel
 		for(int idx = 0; idx < slots.size(); idx++) {
 			Card card = hand.get(idx);
-			JLabel slot = slots.get(idx);
+			CardLabel slot = slots.get(idx);
 			slot.setIcon(card.getHorizontalImage());
 			
-			if(card.isClued())
-				slot.setBorder(BorderFactory.createLineBorder(Color.blue));
+			displayClue(card, slot);
 		}		
+	}
+	
+	protected void displayClue(Card card, CardLabel slot) {
+		
+		String clue = "";
+
+		if(card.isClued()) {
+			slot.setBorder(BorderFactory.createLineBorder(Color.blue));
+			
+			if(card.isCluedValue()) 
+				clue += Integer.toString(card.getValue()+1);	//edit this to format nicer
+			if(card.isCluedSuit())
+				clue += card.getSuitName();
+		}
+		else
+			slot.setBorder(null);
+		
+		slot.setText(clue);
 	}
 
 }

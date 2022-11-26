@@ -14,7 +14,7 @@ public class NorthHandPanel extends VerticalHandPanel {
 		this.add(name);
 
 		for(int idx = hand.size() - 1; idx >= 0; idx--) {	//move this to constructor for all four
-			JLabel slot = slots.get(idx);
+			CardLabel slot = slots.get(idx);
 			this.add(slot);
 		}
 		

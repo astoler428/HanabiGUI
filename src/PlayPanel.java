@@ -1,11 +1,12 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,54 +15,79 @@ import javax.swing.JPanel;
 
 public class PlayPanel extends JPanel{
 	
-	JLabel deck;
-	JPanel playStacks;
-	JLabel clubStack, diamondStack, heartStack, spadeStack;
-	ImageIcon club, diamond, heart, spade;
+	private JLabel deck;
+	private JPanel playStacks;
+	private JLabel clubStack, diamondStack, heartStack, spadeStack;
+	private ArrayList<JLabel> suitLabelList;
+	private ImageIcon club, diamond, heart, spade;
+	private PlayTracker playTracker;
 	
-	public PlayPanel() {
+	public PlayPanel(PlayTracker playTracker) {
 		
+		this.playTracker = playTracker;
+	
+		createDeckDisplay();
+		createStackDisplay();
 		
-		deck = new JLabel("35", CardImages.cardBack, JLabel.CENTER); //will need to set text later
+		this.setSize(getPreferredSize());
+		this.add(deck);
+		this.add(playStacks);
+				
+	}
+	
+	private void createDeckDisplay() {
+		deck = new JLabel(CardImages.cardBack, JLabel.CENTER); //will need to set text later
 		deck.setVerticalTextPosition(JLabel.CENTER);
 		deck.setHorizontalTextPosition(JLabel.CENTER);
 		deck.setFont(new Font("Ariel", Font.BOLD, 50));
+	}
+	
+	private void createStackDisplay() {
 		
-		club = CardImages.clubCard;
-		diamond = CardImages.diamondCard;
-		heart = CardImages.heartCard;
-		spade = CardImages.spadeCard;
+//		club = CardImages.clubCard;
+//		diamond = CardImages.diamondCard;
+//		heart = CardImages.heartCard;
+//		spade = CardImages.spadeCard;
+//		
+//		clubStack = new JLabel(club);
+//		diamondStack = new JLabel(diamond);
+//		heartStack = new JLabel(heart);
+//		spadeStack = new JLabel(spade);
+		
+		//create labels for images
+		
+		clubStack = new JLabel();
+		diamondStack = new JLabel();
+		heartStack = new JLabel();
+		spadeStack = new JLabel();
+		
+		//add labels to list
+		suitLabelList = new ArrayList<>();
+		suitLabelList.add(clubStack);
+		suitLabelList.add(diamondStack);
+		suitLabelList.add(heartStack);
+		suitLabelList.add(spadeStack);
+		
+		for(int idx = 0; idx < suitLabelList.size(); idx++)
+			suitLabelList.get(idx).setBorder(BorderFactory.createLineBorder(Color.blue));
 
-		
-//		club = new ImageIcon(CardImages.club.getImage().getScaledInstance(90, 120, java.awt.Image.SCALE_SMOOTH));
-//		diamond = new ImageIcon(CardImages.diamond.getImage().getScaledInstance(90, 120, java.awt.Image.SCALE_SMOOTH));
-//		heart = new ImageIcon(CardImages.heart.getImage().getScaledInstance(90, 120, java.awt.Image.SCALE_SMOOTH));
-//		spade = new ImageIcon(CardImages.spade.getImage().getScaledInstance(90, 120, java.awt.Image.SCALE_SMOOTH));
-		
-		clubStack = new JLabel(club);
-		diamondStack = new JLabel(diamond);
-		heartStack = new JLabel(heart);
-		spadeStack = new JLabel(spade);
-		
-		clubStack.setBorder(BorderFactory.createLineBorder(Color.blue));
-		diamondStack.setBorder(BorderFactory.createLineBorder(Color.blue));
-		heartStack.setBorder(BorderFactory.createLineBorder(Color.blue));
-		spadeStack.setBorder(BorderFactory.createLineBorder(Color.blue));
-		
 		playStacks = new JPanel();
 		playStacks.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 10));
 		playStacks.setBorder(BorderFactory.createLineBorder(Color.black));
 
-		playStacks.add(clubStack);
-		playStacks.add(diamondStack);
-		playStacks.add(heartStack);
-		playStacks.add(spadeStack);
+		for(int idx = 0; idx < suitLabelList.size(); idx++)
+			playStacks.add(suitLabelList.get(idx));
 		
-		this.setSize(getPreferredSize());
-		//new Dimension(700, 200)
-		this.add(deck);
-		this.add(playStacks);
-				
+	}
+	
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		deck.setText(Integer.toString(playTracker.getDeckCount()));
+		
+		for(int suit = 0; suit < 4; suit++) {				//this is where the label get set to the right icon
+			suitLabelList.get(suit).setIcon(playTracker.getIconToDisplayOnStacks(suit)); 
+		}
+			
 	}
 	
 //	public static void main(String[] args) {

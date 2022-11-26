@@ -14,26 +14,26 @@ import javax.swing.JTextArea;
 public class LogPanel extends JPanel {
 	
 	private JLabel title;
-	private JTextArea log;
-	private String logText;
+	private JTextArea logTextArea;
+	private Log log;
 	private JScrollPane scroll;
 
-	public LogPanel() {
+	public LogPanel(Log log) {
 			
 		title = new JLabel("Game Log");
 		title.setFont(new Font("Ariel", Font.BOLD, 30));
 		title.setForeground(Color.blue);
 		
-		log = new JTextArea(40, 15);
-		log.setBackground(Color.yellow);
-		log.setEditable(false);	
-		log.setLineWrap(true);	//forces stuff onto next line
-		log.setWrapStyleWord(true);//breaks at nearest word, not character
+		logTextArea = new JTextArea(40, 15);
+		logTextArea.setBackground(Color.yellow);
+		logTextArea.setEditable(false);	
+		logTextArea.setLineWrap(true);	//forces stuff onto next line
+		logTextArea.setWrapStyleWord(true);//breaks at nearest word, not character
 		
-		logText = "Game Begins";
-		log.setText(logText);
+		this.log = log;
+		logTextArea.setText(log.getLogText());
 		
-		scroll = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll = new JScrollPane(logTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	
 		this.setLayout(new FlowLayout());
 		this.setPreferredSize(new Dimension(200, 600));
@@ -42,10 +42,12 @@ public class LogPanel extends JPanel {
 		this.add(scroll);
 	}
 	
-	public void updateLog(String message) {
-		logText = logText + "\n" + message;
-		log.setText(logText);
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		logTextArea.setText(log.getLogText());
 	}
+	
 		
 //	public static void main(String[] args) {
 //		LogPanel log = new LogPanel();

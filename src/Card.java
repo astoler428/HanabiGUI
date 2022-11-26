@@ -6,8 +6,10 @@ public class Card {
 
 	private int value; //0-4
 	private int suit; //0 = club //1 = diamond //2 = heart //3 = spade
+	private String suitName;
 	private boolean cluedSuit, cluedValue;
 	private ImageIcon hImage, vImage;
+	
 	
 		
 	public Card(int value, int suit) {
@@ -16,7 +18,26 @@ public class Card {
 		cluedSuit = false;
 		cluedValue= false;
 		
+		setSuitName();
+		
 		setImages();
+	}
+	
+	private void setSuitName() {
+		switch(suit) {
+		
+		case 0: suitName = "C";
+			break;
+			
+		case 1: suitName = "D";
+			break;
+		
+		case 2: suitName = "H";
+			break;
+		
+		case 3: suitName = "S";
+			break;
+		}
 	}
 	
 	private void setImages() {
@@ -38,6 +59,10 @@ public class Card {
 	
 	public int getSuit() {
 		return suit;
+	}
+	
+	public String getSuitName() {
+		return suitName;
 	}
 	
 	public boolean isCluedSuit() {
