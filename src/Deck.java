@@ -41,7 +41,6 @@ public class Deck {
 	}
 	
 	private void shuffle() {
-	
 		for(int idx = 0; idx < theDeck.size(); idx++) {
 			Card temp = theDeck.get(idx);
 			int spot = rand.nextInt(0, theDeck.size());
@@ -57,16 +56,4 @@ public class Deck {
 	public boolean isEmpty() {
 		return theDeck.isEmpty();
 	}
-	
-	//for testing purposes - print the deck
-	
-//	public String toString() {
-//		String toReturn = "";
-//		for(int i = 0; i < theDeck.size(); i++)
-//			toReturn += theDeck.get(i).getValue();
-//		
-//		
-//		return toReturn;
-//	}
-	
 }

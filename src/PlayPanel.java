@@ -32,7 +32,6 @@ public class PlayPanel extends JPanel{
 		this.setSize(getPreferredSize());
 		this.add(deck);
 		this.add(playStacks);
-				
 	}
 	
 	private void createDeckDisplay() {
@@ -43,18 +42,6 @@ public class PlayPanel extends JPanel{
 	}
 	
 	private void createStackDisplay() {
-		
-//		club = CardImages.clubCard;
-//		diamond = CardImages.diamondCard;
-//		heart = CardImages.heartCard;
-//		spade = CardImages.spadeCard;
-//		
-//		clubStack = new JLabel(club);
-//		diamondStack = new JLabel(diamond);
-//		heartStack = new JLabel(heart);
-//		spadeStack = new JLabel(spade);
-		
-		//create labels for images
 		
 		clubStack = new JLabel();
 		diamondStack = new JLabel();
@@ -69,11 +56,11 @@ public class PlayPanel extends JPanel{
 		suitLabelList.add(spadeStack);
 		
 		for(int idx = 0; idx < suitLabelList.size(); idx++)
-			suitLabelList.get(idx).setBorder(BorderFactory.createLineBorder(Color.blue));
+			suitLabelList.get(idx).setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
 		playStacks = new JPanel();
 		playStacks.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 10));
-		playStacks.setBorder(BorderFactory.createLineBorder(Color.black));
+		playStacks.setBorder(BorderFactory.createLineBorder(Color.black, 5));
 
 		for(int idx = 0; idx < suitLabelList.size(); idx++)
 			playStacks.add(suitLabelList.get(idx));
@@ -89,16 +76,4 @@ public class PlayPanel extends JPanel{
 		}
 			
 	}
-	
-//	public static void main(String[] args) {
-//		
-//				JFrame frame = new JFrame();
-//				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//				frame.setSize(1400, 750);
-//				PlayPanel pp = new PlayPanel();
-//				frame.add(pp);
-//				frame.pack();
-//				frame.setVisible(true);
-//				
-//			}
 }

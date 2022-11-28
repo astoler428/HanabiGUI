@@ -16,13 +16,16 @@ public class DiscardTracker {
 		
 		discardTracker = new int[4][5];
 		determineMaxScore();
-
 	}
 
 	private void determineMaxScore() { // adds up max scores for each color
 		maxScore = 0;
 		for (int i = 0; i < 4; i++)
 			maxScore += maxScores[i];
+	}
+	
+	public int getMaxScore() {
+		return maxScore;
 	}
 
 	public int discard(Card card) { // this will return the new max possible score
@@ -33,13 +36,7 @@ public class DiscardTracker {
 		discards[suit] += Integer.toString(value+1) + " ";
 		discardTracker[suit][value]++; // add card to tracker
 
-		if (discardTracker[suit][value] == Deck.numCopies[value] && value <= maxScores[suit]) // checks if number of
-																								// copies have been
-																								// reached and that it
-																								// actually lowers the
-																								// score, if both 2s are
-																								// gone and then both 3s
-																								// are gone, don't reset
+		if (discardTracker[suit][value] == Deck.numCopies[value] && value <= maxScores[suit])
 			maxScores[suit] = value;
 
 		determineMaxScore();
@@ -50,5 +47,4 @@ public class DiscardTracker {
 	public String getDiscardToDisplay(int suit) {
 		return discards[suit];
 	}
-
 }

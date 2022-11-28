@@ -16,28 +16,5 @@ public class WestHandPanel extends HorizontalHandPanel {
 			CardLabel slot = slots.get(idx);
 			this.add(slot);
 		}
-
 	}
-
-//	public static void main(String[] args) {
-//		Player p = new Player(0);
-//		p.addtoHand(new Card(0, 0));
-//		p.addtoHand(new Card(2, 2));
-//		p.addtoHand(new Card(1, 3));
-//		p.addtoHand(new Card(4, 1));
-//		
-//	
-//
-//		HandPanel whp = new NorthHandPanel(p);
-//
-//		JFrame frame = new JFrame();
-//
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.setSize(1200, 750);
-//		frame.setLayout(new BorderLayout());
-//		frame.add(whp, BorderLayout.NORTH);
-//		frame.setVisible(true);
-//
-//	}
-
 }

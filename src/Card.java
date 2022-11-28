@@ -10,8 +10,6 @@ public class Card {
 	private boolean cluedSuit, cluedValue;
 	private ImageIcon hImage, vImage;
 	
-	
-		
 	public Card(int value, int suit) {
 		this.value = value;
 		this.suit = suit;
@@ -89,6 +87,28 @@ public class Card {
 		cluedSuit = false;
 		cluedValue = false;
 	}	
+	
+	public String toString() {
+		String suitName = "";
+		String valueName = (value == 0 ) ? "ace" : Integer.toString(value+1);
+		
+		
+		switch (suit) {
+		case 0:
+			suitName = "clubs";
+			break;
+		case 1:
+			suitName = "diamonds";
+			break;
+		case 2:
+			suitName = "hearts";
+			break;
+		case 3:
+			suitName = "spades";
+			break;
+		}
+		return valueName + " of " + suitName;
+	}
 	
 //	public static void main(String[] args) {
 //		Card c = new Card(2, 3);

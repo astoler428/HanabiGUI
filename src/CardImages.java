@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class CardImages {
 	
-	static final int CARD_WIDTH = 80;
+	static final int CARD_WIDTH = 75;
 	static final int CARD_HEIGHT = (int) (1.33333*CARD_WIDTH);
 	
 	static ImageIcon club1H = new ImageIcon(new ImageIcon("res/1ClubH.png").getImage().getScaledInstance(CARD_HEIGHT, CARD_WIDTH, java.awt.Image.SCALE_SMOOTH));
@@ -58,7 +58,7 @@ public class CardImages {
 	static ImageIcon spade4 = new ImageIcon(new ImageIcon("res/4Spade.png").getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, java.awt.Image.SCALE_SMOOTH));
 	static ImageIcon spade5 = new ImageIcon(new ImageIcon("res/5Spade.png").getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, java.awt.Image.SCALE_SMOOTH));
 		
-	static ImageIcon cardBack = new ImageIcon(new ImageIcon("res/cardBack.jpeg").getImage().getScaledInstance(CARD_WIDTH, 120, java.awt.Image.SCALE_SMOOTH));
+	static ImageIcon cardBack = new ImageIcon(new ImageIcon("res/cardBack.jpeg").getImage().getScaledInstance(CARD_WIDTH, CARD_HEIGHT, java.awt.Image.SCALE_SMOOTH));
 	
 	static ImageIcon club = new ImageIcon("res/club.png");
 	static ImageIcon diamond = new ImageIcon("res/diamond.jpeg");

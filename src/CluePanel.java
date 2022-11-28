@@ -42,21 +42,31 @@ public class CluePanel extends JPanel {
 		
 		this.setLayout(new GridLayout(5,1,0,5));  
 		this.setPreferredSize(new Dimension(375, 300));
-		this.setBorder(BorderFactory.createLineBorder(Color.magenta));
+		this.setBorder(BorderFactory.createLineBorder(Color.magenta, 5));
+		this.setBackground(Color.green);
 	
 		clueTitle = new JLabel("Give a clue");
 		clueTitle.setFont(new Font("Ariel", Font.BOLD, 25));
 		clueTitle.setHorizontalAlignment(JLabel.CENTER);
 		
-		
 		playerPanel = new JPanel();
 		playerPanel.setLayout(new GridLayout(1, 4, 5, 0));
+		playerPanel.setBackground(Color.green);
 		
 		p1 = new RadioButton("Player 1", selfPlayer);
 		p2 = new RadioButton("Player 2", selfPlayer);
 		p3 = new RadioButton("Player 3", selfPlayer);
 		p4 = new RadioButton("Player 4", selfPlayer);
 		
+		
+		p1.setFont(new Font("Ariel", Font.BOLD, 15));
+		p1.setForeground(Color.blue);
+		p2.setFont(new Font("Ariel", Font.BOLD, 15));
+		p2.setForeground(Color.blue);
+		p3.setFont(new Font("Ariel", Font.BOLD, 15));
+		p3.setForeground(Color.blue);
+		p4.setFont(new Font("Ariel", Font.BOLD, 15));
+		p4.setForeground(Color.blue);
 		
 		arrayOfPlayerButtons = new JRadioButton[4];
 		arrayOfPlayerButtons[0]= p1;
@@ -87,6 +97,8 @@ public class CluePanel extends JPanel {
 		
 		valuePanel = new JPanel();
 		valuePanel.setLayout(new GridLayout(1, 5, 5, 0));
+		valuePanel.setBackground(Color.green);
+
 		
 		val1 = new RadioButton("1", selfPlayer);
 		val2 = new RadioButton("2", selfPlayer);
@@ -106,7 +118,17 @@ public class CluePanel extends JPanel {
 		val4.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		val5.setPreferredSize(new Dimension(BUTTON_WIDTH, BUTTON_HEIGHT));
 		
-
+		val1.setFont(new Font("Ariel", Font.BOLD, 15));
+		val1.setForeground(Color.blue);
+		val2.setFont(new Font("Ariel", Font.BOLD, 15));
+		val2.setForeground(Color.blue);
+		val3.setFont(new Font("Ariel", Font.BOLD, 15));
+		val3.setForeground(Color.blue);
+		val4.setFont(new Font("Ariel", Font.BOLD, 15));
+		val4.setForeground(Color.blue);
+		val5.setFont(new Font("Ariel", Font.BOLD, 15));
+		val5.setForeground(Color.blue);
+		
 		valuePanel.add(val1);
 		valuePanel.add(val2);
 		valuePanel.add(val3);
@@ -115,11 +137,7 @@ public class CluePanel extends JPanel {
 		
 		suitPanel = new JPanel();
 		suitPanel.setLayout(new GridLayout(1, 4, 5, 0));
-		
-//		club = new RadioButton(new ImageIcon(CardImages.club.getImage().getScaledInstance((int) (.75*BUTTON_WIDTH), (int) (.75*BUTTON_WIDTH), java.awt.Image.SCALE_SMOOTH)), selfPlayer);
-//		diamond = new RadioButton(new ImageIcon(CardImages.diamond.getImage().getScaledInstance((int) (.75*BUTTON_WIDTH), (int) (.75*BUTTON_WIDTH), java.awt.Image.SCALE_SMOOTH)), selfPlayer);
-//		heart = new RadioButton(new ImageIcon(CardImages.heart.getImage().getScaledInstance((int) (.75*BUTTON_WIDTH), (int) (.75*BUTTON_WIDTH), java.awt.Image.SCALE_SMOOTH)), selfPlayer);
-//		spade = new RadioButton(new ImageIcon(CardImages.spade.getImage().getScaledInstance((int) (.75*BUTTON_WIDTH), (int) (.75*BUTTON_WIDTH), java.awt.Image.SCALE_SMOOTH)), selfPlayer);
+		suitPanel.setBackground(Color.green);
 		
 		club = new RadioButton("Club", selfPlayer);
 		diamond = new RadioButton("Diamond", selfPlayer);
@@ -130,7 +148,15 @@ public class CluePanel extends JPanel {
 		diamond.addActionListener(clueListener);
 		heart.addActionListener(clueListener);
 		spade.addActionListener(clueListener);
-
+		
+		club.setFont(new Font("Ariel", Font.BOLD, 15));
+		club.setForeground(Color.blue);
+		diamond.setFont(new Font("Ariel", Font.BOLD, 15));
+		diamond.setForeground(Color.blue);
+		heart.setFont(new Font("Ariel", Font.BOLD, 15));
+		heart.setForeground(Color.blue);
+		spade.setFont(new Font("Ariel", Font.BOLD, 15));
+		spade.setForeground(Color.blue);
 		
 		clueGroup = new ButtonGroup();
 		clueGroup.add(val1);
@@ -150,6 +176,9 @@ public class CluePanel extends JPanel {
 		
 		giveClue = new Button("Give Clue", selfPlayer);
 		giveClue.setPreferredSize(new Dimension(4*BUTTON_WIDTH, BUTTON_HEIGHT));
+		giveClue.setBackground(Color.orange);
+		giveClue.setOpaque(true);
+		giveClue.setBorder(BorderFactory.createRaisedBevelBorder());
 		
 		giveClue.addActionListener(giveClueListener);
 			
@@ -158,8 +187,8 @@ public class CluePanel extends JPanel {
 		this.add(valuePanel);
 		this.add(suitPanel);
 		this.add(giveClue);
+		
 	}
-	
 	public void configureClueButtons(int numPlayers) {		//doesn't display self or less than # players -> decide what to do if no clues
 		for(int playerID = 0; playerID < arrayOfPlayerButtons.length; playerID++)
 			if(selfPlayer.getID() == playerID || playerID >= numPlayers)
@@ -187,21 +216,6 @@ public class CluePanel extends JPanel {
 			this.setVisible(false);
 			this.resetGiveClueButton();	//in case they pressed it with no clues
 		}
-		repaint();
+		//repaint();
 	}
-	
-
-	
-//	public static void main(String[] args) {
-//		
-//			JFrame frame = new JFrame();
-//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			frame.setSize(new Dimension(600, 750));
-//			CluePanel dp = new CluePanel(new Player(0));
-//			frame.add(dp);
-//			frame.pack();
-//			frame.setVisible(true);
-//			
-//		}
-
 }

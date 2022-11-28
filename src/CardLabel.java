@@ -3,7 +3,8 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
-//
+//JLabel that will hold the image that gets printed for each hand
+//Also store the player and slot number
 
 public class CardLabel extends JLabel {
 

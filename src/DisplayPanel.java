@@ -14,9 +14,7 @@ public class DisplayPanel extends JPanel {
 	private PlayPanel playPanel;
 	private DiscardPanel discardPanel;
 	private CluePanel cluePanel;
-	
 	private JPanel boxPanelEast, boxPanelNorth, boxPanelCenter;
-	
 	
 	public DisplayPanel(PlayPanel playPan, DiscardPanel discardPan, CluePanel cluePan) {
 		this.playPanel = playPan;
@@ -54,16 +52,12 @@ public class DisplayPanel extends JPanel {
 	
 	public void paintComponent(Graphics g) {				//place these in their respective classes' paintComponents
 		super.paintComponent(g);
-		//System.out.println("display panel repainting");
-		playPanel.repaint();
-		discardPanel.repaint();
+//		playPanel.repaint();
+//		discardPanel.repaint();
 		cluePanel.updateCluePanelVisibility();
-
-		
 	}
 	
 	public CluePanel getCluePanel() {
 		return cluePanel;
 	}
-	
 }

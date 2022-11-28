@@ -29,23 +29,14 @@ public class DiscardPanel extends JPanel {
 		
 		createDiscardDisplay();
 
-		
-
 		clubDiscards.setIcon(clubImage);
 		diamondDiscards.setIcon(diamondImage);
 		heartDiscards.setIcon(heartImage);
 		spadeDiscards.setIcon(spadeImage);
 
-		
-
-		// new Dimension(200, 250)
 		this.setBackground(Color.gray);
 		this.setLayout(new GridLayout(4, 2));
-
-		
-
-		// this.setSize(getPreferredSize());
-
+		this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 4));
 	}
 	
 	private void createDiscardDisplay(){
@@ -72,11 +63,6 @@ public class DiscardPanel extends JPanel {
 		for(int idx = 0; idx < discardLabelList.size(); idx++)
 			discardLabelList.get(idx).setIconTextGap(10);
 		
-//		clubDiscards.setIconTextGap(10);
-//		diamondDiscards.setIconTextGap(10);
-//		heartDiscards.setIconTextGap(10);
-//		spadeDiscards.setIconTextGap(10);
-
 		clubDiscards.setFont(new Font("Ariel", Font.BOLD, 15));
 		clubDiscards.setForeground(Color.black);
 
@@ -91,19 +77,9 @@ public class DiscardPanel extends JPanel {
 		
 		for(int idx = 0; idx < discardLabelList.size(); idx++)
 			discardLabelList.get(idx).setPreferredSize(new Dimension(200, IMAGE_SIZE));
-
-//		clubDiscards.setPreferredSize(new Dimension(200, IMAGE_SIZE));
-//		diamondDiscards.setPreferredSize(new Dimension(200, IMAGE_SIZE));
-//		heartDiscards.setPreferredSize(new Dimension(200, IMAGE_SIZE));
-//		diamondDiscards.setPreferredSize(new Dimension(200, IMAGE_SIZE));
 		
 		for(int idx = 0; idx < discardLabelList.size(); idx++)
 			add(discardLabelList.get(idx));
-		
-//		this.add(clubDiscards);
-//		this.add(diamondDiscards);
-//		this.add(heartDiscards);
-//		this.add(spadeDiscards);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -113,5 +89,4 @@ public class DiscardPanel extends JPanel {
 			discardLabelList.get(suit).setText(discardTracker.getDiscardToDisplay(suit)); 
 		}
 	}
-
 }

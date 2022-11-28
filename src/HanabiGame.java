@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -33,10 +34,11 @@ public class HanabiGame {
 	private DisplayPanel[] displayPanels;
 	private JPopupMenu[] popupMenus;
 
-	private int turn; // starts at 0 and will look mod NUM_PLAYERS to find whose turn it is in the
+	private int turn; // starts at 0 and will look mod NUM_PLAYERS to find whose turn it is
+	private int finalTurnCounter;
 	private Player currentPlayer; // array
 
-	private String[] clueOptionsArray = { "1", "2", "3", "4", "5", "Club", "Diamond", "Heart", "Spade" };
+	private String[] clueOptionsArray = { "1", "2", "3", "4", "5", "club", "diamond", "heart", "spade" };
 	private String[] playerOptionsArray = { "Player 1", "Player 2", "Player 3", "Player 4" };
 	private List<String> clueOptions;
 	private List<String> playerOptions;
@@ -50,6 +52,7 @@ public class HanabiGame {
 			CARDS_PER_HAND = 4;
 
 		turn = 0;
+		finalTurnCounter = 0;  //will track all the turns once final turns start - goes up to # of players
 
 		deck = new Deck();
 		tracker = new Tracker();
@@ -73,8 +76,6 @@ public class HanabiGame {
 	}
 
 	public void playGame() {
-
-		// while (true) { // switch to !gameOver
 		
 			currentPlayer = getCurrentPlayer();
 			currentPlayer.setTurn(true);
@@ -83,8 +84,6 @@ public class HanabiGame {
 	}
 
 	private void giveClue() {
-		// current player clues current players haschosenplayer
-		// switch index of hasChosenClue
 
 		int idx = clueOptions.indexOf(currentPlayer.getHasChosenClue());
 
@@ -94,43 +93,34 @@ public class HanabiGame {
 			currentPlayer.getHasChosenPlayerToClue().receiveSuitClue(idx - 5);
 
 		tracker.subtractClue();
-		updateLog("player clued");
-		currentPlayer.setTurn(false);
-		turn++;
-		currentPlayer = getCurrentPlayer();
-		currentPlayer.setTurn(true);
-		repaint(); //my method here that calls repaint on all frames
 		
-		//UPDATE LOG
-		//FIGURE OUT HOW TO REPAINT EVERYTHING...
+		updateLog("Player #" + (currentPlayer.getID()+1) + " clued player #" + (currentPlayer.getHasChosenPlayerToClue().getID()+1) + " about " + currentPlayer.getHasChosenClue() + "'s");
+		turnOver();
 	}
 	
 	private void play(Player player, int slot) {		//keep editing for misplay and drawing accounting for final turns
 		Card card = player.getCardAt(slot);
-		
 
 		if(playTracker.play(card)) {		//means card successfully played on stacks
 			
 			player.removefromHand(slot);
 			tracker.addPoint();
 			
-			if(tracker.getClues() != 8 && card.getValue() == 4)		//add a clue for playing 5's
-				tracker.addClue();
-			
 			deck.draw(player); //EDIT TO ACCOUNT FOR ON FINAL TURNS...
 			
+			String blind = card.isClued() ? " " : " blind ";
 			
+			updateLog("Player #" + (player.getID()+1) + " played " + card.toString() + blind + "from slot #" + (slot+1));
 			
-			updateLog("Card Played");
-			currentPlayer.setTurn(false);
-			turn++;
-			currentPlayer = getCurrentPlayer();
-			currentPlayer.setTurn(true);
-			repaint();
+			if(tracker.getClues() != 8 && card.getValue() == 4) {		//add a clue for playing 5's
+				tracker.addClue();
+				updateLog("One additional clue");
+			}
+			
+			turnOver();
 		}
-		else {
+		else 
 			misPlay(player, slot);
-		}
 	}
 	
 	public void misPlay(Player player, int slot) {
@@ -147,22 +137,53 @@ public class HanabiGame {
 		if(!misplay)
 			tracker.addClue();
 		
-		deck.draw(player);	//EDIT TO ACCOUNT FOR ON FINAL TURNS...
+		if(!isFinalTurns())
+			deck.draw(player);
+		
+		String action = misplay ? " misplayed " : " discarded ";
+		updateLog("Player #" + (player.getID()+1) + action + card.toString() + " from slot #" + (slot+1));
 
-		if(!misplay)
-			updateLog("Card Discarded");
-		else
-			updateLog("Card Misplayed");
+		turnOver();
+	}
+	
+	private void turnOver() {
 		currentPlayer.setTurn(false);
 		turn++;
+		
+		if(isFinalTurns())
+			finalTurnCounter++;
+		
 		currentPlayer = getCurrentPlayer();
 		currentPlayer.setTurn(true);
+		
+		if(gameOver()) {
+			updateLog("Game Over");
+			currentPlayer.setTurn(false);
+		}
 		repaint();
 	}
 	
+	public boolean gameOver() {
+		boolean gameOver = false;
+				
+		if(tracker.getStrikes() == 3)
+			gameOver = true;
+		
+		if(discardTracker.getMaxScore() == tracker.getPoints()) //reached best possible score
+			gameOver = true;
+		
+		if(finalTurnCounter > NUM_PLAYERS)   //after a players turn, if isFinalTurns, increment final turn counter
+			gameOver = true;
+		
+		return gameOver;
+	}
 	
 	public void updateLog(String message) {
-		log.updateLog(message);
+		log.updateLog("*" + message);
+	}
+	
+	private boolean isFinalTurns() {
+		return deck.isEmpty(); 
 	}
 
 	private void setClueAndPlayerOptions() {
@@ -190,7 +211,8 @@ public class HanabiGame {
 			JMenuItem discard = new JMenuItem("Discard");
 			play.addActionListener(new PlayListener());
 			discard.addActionListener(new DiscardListener());
-			popupMenus[i] = new JPopupMenu();			//CardLabels in southListener need a mouselistener!
+			popupMenus[i] = new JPopupMenu();		
+			popupMenus[i].setPreferredSize(new Dimension(80,80));
 			popupMenus[i].add(play);
 			popupMenus[i].add(discard);
 		}
@@ -271,7 +293,6 @@ public class HanabiGame {
 			hanabiGameFrames[idx] = new HanabiGameFrame("player " + (idx + 1), gamePanels[idx], logPanels[idx],
 					trackerPanels[idx]);
 		}
-
 	}
 	
 	public void repaint() {
@@ -283,6 +304,10 @@ public class HanabiGame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			if(gameOver())
+				return;
+			
 			RadioButton button = (RadioButton) e.getSource();
 			Player player = button.getPlayer();
 
@@ -299,6 +324,10 @@ public class HanabiGame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			if(gameOver())
+				return;
+			
 			RadioButton button = (RadioButton) e.getSource();
 			Player player = button.getPlayer();
 
@@ -315,6 +344,8 @@ public class HanabiGame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			
+			if(gameOver())
+				return;
 			
 			Button button = (Button) e.getSource();
 			Player player = button.getPlayer();
@@ -334,25 +365,28 @@ public class HanabiGame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {		//don't have to check for turn since clickListener for popup will and thats the only way this will get accessed
-			//only accessed by currentPlayer
+			if(gameOver())
+				return;
+			
 			play(currentPlayer, currentPlayer.getChosenSlot());
 			
 		}
-		
 	}
 	
 	private class DiscardListener implements ActionListener{	//check for 8 clues and turn
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			if(gameOver())
+				return;
+			
 			if(tracker.getClues() == 8) {
 //				JOptionPane.showMessageDialog(null, "Can't discard with 8 clues"); 
 			}
 			else {
 				discard(currentPlayer, currentPlayer.getChosenSlot(), false);
 			}
-				
-			
 		}
 	}
 	
@@ -361,7 +395,11 @@ public class HanabiGame {
 	
 	private class ClickListener extends MouseAdapter{	
 		
-		public void mouseClicked(MouseEvent e) {				//create a CardLabel variable here to store/update what was last selected or create a slot variable and store that - player is obviously currentPlayer
+		public void mouseClicked(MouseEvent e) {				
+			
+			if(gameOver())
+				return;
+			
 			CardLabel cardLabel = (CardLabel) e.getComponent();
 			Player player = cardLabel.getPlayer();
 			if(player.isTurn()) { 
@@ -369,10 +407,9 @@ public class HanabiGame {
 				player.setChosenSlot(cardLabel.getSlotNum());
 			}
 		}
-
 	}
 
 	public static void main(String[] args) {
-		HanabiGame game = new HanabiGame(3);
+		HanabiGame game = new HanabiGame(4);
 	}
 }

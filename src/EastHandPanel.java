@@ -13,7 +13,5 @@ public class EastHandPanel extends HorizontalHandPanel {
 			CardLabel slot = slots.get(idx);
 			this.add(slot);
 		}
-		
 	}
-
 }

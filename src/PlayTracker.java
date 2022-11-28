@@ -13,14 +13,12 @@ public class PlayTracker {
 	private ImageIcon club, diamond, heart, spade;
 	private Deck deck;
 
-
 	public PlayTracker(Deck deck) {	//don't need numPlayers
 		
 		this.deck = deck; 
 		
 		createStackTracker();
 		setIconsToDisplayOnStacks();
-		
 	}
 	
 	private void setIconsToDisplayOnStacks() {		//sets initial icons
@@ -58,7 +56,6 @@ public class PlayTracker {
 			playable = true;
 			stackTracker.get(suit).push(value);
 			iconsToDisplayOnStacks[suit] = CardImages.verticalImages[suit][value]; //updatesIconsToDisplay
-			System.out.println(iconsToDisplayOnStacks[suit].getImage());
 		}
 		return playable;
 	}

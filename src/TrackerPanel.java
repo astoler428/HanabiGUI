@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ public class TrackerPanel extends JPanel {
 		this.setPreferredSize(new Dimension(150, 150));
 		//this.setSize(getPreferredSize()); //don't use set size since it's going into a flow layout...east panel
 		this.setBackground(Color.blue);
+		this.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 		
 		this.add(clues);
 		this.add(points);
@@ -44,7 +46,6 @@ public class TrackerPanel extends JPanel {
 		clues.setText("Clues: " + tracker.getClues());
 		points.setText("Points: " + tracker.getPoints());
 		strikes.setText("Strikes: " + tracker.getStrikes());
-		
 	}
 	
 	public static void main(String[] args) {
@@ -56,7 +57,5 @@ public class TrackerPanel extends JPanel {
 			frame.add(tp);
 			frame.pack();
 			frame.setVisible(true);
-			
 		}
-
 }

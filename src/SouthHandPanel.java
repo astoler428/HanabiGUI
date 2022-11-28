@@ -12,24 +12,19 @@ public class SouthHandPanel extends VerticalHandPanel {
 		super(player);
 		
 		this.add(name);
-		this.popMenu = pop;
+		popMenu = pop;
 
 		for (int idx = 0; idx < hand.size(); idx++) {
 			CardLabel slot = slots.get(idx);
 			slot.addMouseListener(clickListener);
 			this.add(slot);
 		}
-		
-		//move some of this...
-		
-		this.add(pop);
-		
-		
+		this.add(popMenu);
 	}
 
 	public void setIcons() {
 
-		for (int idx = 0; idx < slots.size(); idx++) {
+		for (int idx = 0; idx < hand.size(); idx++) {
 			CardLabel slot = slots.get(idx);
 			slot.setIcon(CardImages.cardBack);
 			
@@ -37,7 +32,10 @@ public class SouthHandPanel extends VerticalHandPanel {
 			
 			displayClue(card, slot);
 		}
-
+		
+		if(hand.size() < slots.size()) {	//last turn and played a card
+			slots.remove(slots.size()-1);
+			this.remove(slots.size()-1);
+		}
 	}
-	
 }

@@ -55,12 +55,11 @@ public class HandPanel extends JPanel {
 			slots.get(i).setHorizontalTextPosition(JLabel.CENTER);
 			slots.get(i).setVerticalTextPosition(JLabel.CENTER);
 		}
-		
 	}
 	
 	private void borderPlayersTurn() {					
 		if(selfPlayer.isTurn())
-			name.setBorder(BorderFactory.createLineBorder(Color.pink));
+			name.setBorder(BorderFactory.createLineBorder(Color.pink, 5));
 		else
 			name.setBorder(null);
 	}

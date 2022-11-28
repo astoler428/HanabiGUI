@@ -24,6 +24,4 @@ public class RadioButton extends JRadioButton {
 	public Player getPlayer() {
 		return player;
 	}
-	
-
 }

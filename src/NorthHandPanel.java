@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 
 public class NorthHandPanel extends VerticalHandPanel {
 
-
 	public NorthHandPanel(Player player) {
 		super(player);
 		
@@ -17,11 +16,5 @@ public class NorthHandPanel extends VerticalHandPanel {
 			CardLabel slot = slots.get(idx);
 			this.add(slot);
 		}
-		
-	
-	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);		
 	}
 }

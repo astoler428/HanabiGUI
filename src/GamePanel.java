@@ -35,13 +35,11 @@ public class GamePanel extends JPanel {
 		this.setPreferredSize(new Dimension(1100, 800));
 		this.add(displayPanel, BorderLayout.CENTER);
 
-
 		makeListOfPlayers(listPlayers); // takes the list and reorders it so self is first
 		setHandLocations();
 	}
 
 	private void makeListOfPlayers(Player[] listPlayers) {	//this method makes a new list of players that begins with self
-		
 	
 		listOfPlayers = new Player[listPlayers.length];
 
@@ -89,14 +87,15 @@ public class GamePanel extends JPanel {
 			listOfHandPanels.add(westHandPanel);
 			listOfHandPanels.add(northHandPanel);
 			listOfHandPanels.add(eastHandPanel);
+			
+			break;
 		}
 	}
 	
 	public void paintComponent(Graphics g) {				//place these in their respective classes' paintComponents
 		super.paintComponent(g);
-		displayPanel.repaint();
+		//displayPanel.repaint();
 		for(int idx = 0; idx < listOfHandPanels.size(); idx++)
 			listOfHandPanels.get(idx).repaint();
 	}
-
 }

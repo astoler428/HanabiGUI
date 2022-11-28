@@ -26,7 +26,6 @@ public class HanabiGameFrame extends JFrame {
 		this.trackerPanel = trackerPanel;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setSize(new Dimension(1500, 800));
 		setLayout(new BorderLayout());
 		
 		eastPanel = new JPanel();
