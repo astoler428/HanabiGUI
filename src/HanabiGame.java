@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +14,7 @@ import javax.swing.JPopupMenu;
 //this class is where the game runs from
 
 public class HanabiGame {
-
+	
 	private final int NUM_PLAYERS;
 	private final int CARDS_PER_HAND;
 	private Deck deck;
@@ -32,7 +33,7 @@ public class HanabiGame {
 	private DiscardPanel[] discardPanels;
 	private CluePanel[] cluePanels;
 	private DisplayPanel[] displayPanels;
-	private JPopupMenu[] popupMenus;
+	private PlayOrDiscardPopupMenu[] popupMenus;
 
 	private int turn; // starts at 0 and will look mod NUM_PLAYERS to find whose turn it is
 	private int finalTurnCounter;
@@ -204,18 +205,25 @@ public class HanabiGame {
 	
 	private void createPopupMenus() {
 		
-		popupMenus = new JPopupMenu[NUM_PLAYERS];
+		popupMenus = new PlayOrDiscardPopupMenu[NUM_PLAYERS];
 		
-		for (int i = 0; i < NUM_PLAYERS; i++) {
-			JMenuItem play = new JMenuItem("Play");
-			JMenuItem discard = new JMenuItem("Discard");
-			play.addActionListener(new PlayListener());
-			discard.addActionListener(new DiscardListener());
-			popupMenus[i] = new JPopupMenu();		
-			popupMenus[i].setPreferredSize(new Dimension(80,80));
-			popupMenus[i].add(play);
-			popupMenus[i].add(discard);
-		}
+		for (int i = 0; i < NUM_PLAYERS; i++)
+			popupMenus[i] = new PlayOrDiscardPopupMenu(new PlayListener(), new DiscardListener());
+		
+//		popupMenus = new JPopupMenu[NUM_PLAYERS];
+//		
+//		for (int i = 0; i < NUM_PLAYERS; i++) {
+//			JMenuItem play = new JMenuItem("Play");
+//			JMenuItem discard = new JMenuItem("Discard");
+//			play.setBackground(Color.magenta);
+//			discard.setBackground(Color.cyan);
+//			play.addActionListener(new PlayListener());
+//			discard.addActionListener(new DiscardListener());
+//			popupMenus[i] = new JPopupMenu();	
+//			popupMenus[i].setPreferredSize(new Dimension(80,80));
+//			popupMenus[i].add(play);
+//			popupMenus[i].add(discard);
+//		}
 	}
 
 	private void createPlayers() {
@@ -395,14 +403,21 @@ public class HanabiGame {
 	
 	private class ClickListener extends MouseAdapter{	
 		
-		public void mouseClicked(MouseEvent e) {				
+		public void mouseClicked(MouseEvent e) {	
+			
+			
 			
 			if(gameOver())
 				return;
 			
 			CardLabel cardLabel = (CardLabel) e.getComponent();
 			Player player = cardLabel.getPlayer();
-			if(player.isTurn()) { 
+			if(player.isTurn() && e.getButton() == MouseEvent.BUTTON1) { 
+				if(tracker.getClues() == 8)
+					popupMenus[player.getID()].takeAwayDiscard();		//takes away discard option with 8 clues
+				else												
+					popupMenus[player.getID()].addDiscardBack();
+
 				popupMenus[player.getID()].show(cardLabel, e.getX(), e.getY());
 				player.setChosenSlot(cardLabel.getSlotNum());
 			}
@@ -410,6 +425,6 @@ public class HanabiGame {
 	}
 
 	public static void main(String[] args) {
-		HanabiGame game = new HanabiGame(4);
+		HanabiGame game = new HanabiGame(2);
 	}
 }

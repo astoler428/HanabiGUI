@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -83,6 +84,9 @@ public class CluePanel extends JPanel {
 		p2.setPreferredSize(new Dimension((int) (1.333*BUTTON_WIDTH), BUTTON_HEIGHT));
 		p3.setPreferredSize(new Dimension((int) (1.333*BUTTON_WIDTH), BUTTON_HEIGHT));
 		p4.setPreferredSize(new Dimension((int) (1.333*BUTTON_WIDTH), BUTTON_HEIGHT));
+		
+//		p2.setIcon(someIcon);			//this would allow radio buttons to be some icon and change whether selected or not
+//		p2.setSelectedIcon(someIcon);
 		
 		playerPanel.add(p1);
 		playerPanel.add(p2);
