@@ -1,11 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
 //this class stores the center of the gamePanel containing the play area, discard area, tracker area and take action areas.
 //Since border layout regions have no layout manager, I create a box layout container for each object to get the desired layout
@@ -15,6 +18,8 @@ public class DisplayPanel extends JPanel {
 	private DiscardPanel discardPanel;
 	private CluePanel cluePanel;
 	private JPanel boxPanelEast, boxPanelNorth, boxPanelCenter;
+	private JPanel cardPanel;
+	private CardLayout cl;
 	
 	public DisplayPanel(PlayPanel playPan, DiscardPanel discardPan, CluePanel cluePan) {
 		this.playPanel = playPan;
@@ -40,6 +45,13 @@ public class DisplayPanel extends JPanel {
 		
 		this.add(boxPanelNorth, BorderLayout.NORTH);
 		
+		
+		//creating the cardPanel that will hold the two center items - cluePanel and GameOverPanel
+		
+		cardPanel = new JPanel();
+		cl = new CardLayout();
+		cardPanel.setLayout(cl);
+		
 		//putting clue area into box Layout to center it
 
 		boxPanelCenter = new JPanel();
@@ -47,7 +59,13 @@ public class DisplayPanel extends JPanel {
 		boxPanelCenter.add(Box.createHorizontalGlue());
 		boxPanelCenter.add(cluePanel);
 		
-		this.add(boxPanelCenter, BorderLayout.CENTER);		
+		//loading up cardPanel with 2 items
+		
+		cardPanel.add(boxPanelCenter, "clue");
+		cardPanel.add(new GameOverPanel(), "gameOver");
+		cl.show(cardPanel, "clue");
+		
+		this.add(cardPanel, BorderLayout.CENTER);
 	}
 	
 	public void paintComponent(Graphics g) {				//place these in their respective classes' paintComponents
@@ -59,5 +77,10 @@ public class DisplayPanel extends JPanel {
 	
 	public CluePanel getCluePanel() {
 		return cluePanel;
+	}
+	
+	public void displayGameOver() {
+		cl.show(cardPanel, "gameOver");
+
 	}
 }

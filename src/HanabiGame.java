@@ -160,6 +160,8 @@ public class HanabiGame {
 		if(gameOver()) {
 			updateLog("Game Over");
 			currentPlayer.setTurn(false);
+			
+			displayGameOver();	//this method calls display panels gameOvers
 		}
 		repaint();
 	}
@@ -209,21 +211,12 @@ public class HanabiGame {
 		
 		for (int i = 0; i < NUM_PLAYERS; i++)
 			popupMenus[i] = new PlayOrDiscardPopupMenu(new PlayListener(), new DiscardListener());
+	}
+	
+	private void displayGameOver() {
 		
-//		popupMenus = new JPopupMenu[NUM_PLAYERS];
-//		
-//		for (int i = 0; i < NUM_PLAYERS; i++) {
-//			JMenuItem play = new JMenuItem("Play");
-//			JMenuItem discard = new JMenuItem("Discard");
-//			play.setBackground(Color.magenta);
-//			discard.setBackground(Color.cyan);
-//			play.addActionListener(new PlayListener());
-//			discard.addActionListener(new DiscardListener());
-//			popupMenus[i] = new JPopupMenu();	
-//			popupMenus[i].setPreferredSize(new Dimension(80,80));
-//			popupMenus[i].add(play);
-//			popupMenus[i].add(discard);
-//		}
+		for (int i = 0; i < NUM_PLAYERS; i++)
+			displayPanels[i].displayGameOver();
 	}
 
 	private void createPlayers() {
