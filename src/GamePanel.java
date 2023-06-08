@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
 //this class takes in a display panel, which is a complex object on it's own and places it at the center
-//it then builds the hands for all the players, starting with yourself
+//it then builds the hand panels for all the players, starting with yourself
 
 public class GamePanel extends JPanel {
 

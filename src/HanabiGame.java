@@ -14,6 +14,10 @@ import javax.swing.JPopupMenu;
 //this class is where the game runs from
 
 public class HanabiGame {
+
+	public static void main(String[] args) {
+		new HanabiGame(3);
+	}
 	
 	private final int NUM_PLAYERS;
 	private final int CARDS_PER_HAND;
@@ -417,7 +421,5 @@ public class HanabiGame {
 		}
 	}
 
-	public static void main(String[] args) {
-		HanabiGame game = new HanabiGame(2);
-	}
+	
 }

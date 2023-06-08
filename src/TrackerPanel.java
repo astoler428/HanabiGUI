@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-//this class stores the data of clues, points and strikes in a gridLayout - all this data comes in as a tracker object
+//this class outputs the data of clues, points and strikes in a gridLayout - all this data comes in as a tracker object
 
 public class TrackerPanel extends JPanel {
 	
@@ -47,15 +47,5 @@ public class TrackerPanel extends JPanel {
 		points.setText("Points: " + tracker.getPoints());
 		strikes.setText("Strikes: " + tracker.getStrikes());
 	}
-	
-	public static void main(String[] args) {
-		
-			JFrame frame = new JFrame();
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setSize(1400, 750);
-			TrackerPanel tp = new TrackerPanel(new Tracker());
-			frame.add(tp);
-			frame.pack();
-			frame.setVisible(true);
-		}
+
 }
