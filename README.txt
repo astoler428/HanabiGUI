@@ -1,4 +1,4 @@
-This is my largest and most complex project. The GUI is very complex, requiring over 15 nested Panels, using inheritance and polymorphism. There are 29 classes and ~2000 lines of code.
+The GUI requires over 15 nested Panels, using inheritance and polymorphism. There are 29 classes and ~2000 lines of code.
 I spent days creating upwards of 10 pages designing and organizing the project. 
 
 The project simulates the card game Hanabi.
